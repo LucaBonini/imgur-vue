@@ -3,8 +3,8 @@
     <div v-if="!allImages.length">
       fetching images...
     </div>
-    <div v-else class="ui grid">
-      <div v-for="image in allImages" :key="image.id" class="four wide column">
+    <div v-else class="images-container">
+      <div v-for="image in allImages" :key="image.id">
         <img :src="image.link" alt="image" class="img-column">
       </div>
     </div>
@@ -27,7 +27,12 @@ export default {
 }
 </script>
 <style scoped>
+  .images-container {
+    column-count: 3;
+    column-gap: 0;
+  }
   .img-column {
     max-width: 100%;
+    padding: 5px;
   }
 </style>
