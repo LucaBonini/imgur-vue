@@ -4,7 +4,7 @@
       <router-link to="/" class="active item">
         Image storage
       </router-link>
-      Hello {{ getUsername }} !
+      <span v-if="isLoggedIn" class="item">Hello {{ getUsername }} ! </span>
       <div class="right menu">
         <div v-if="isLoggedIn" class="horizontal">
           <router-link to="/" class="item">Galleries</router-link>

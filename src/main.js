@@ -20,5 +20,6 @@ export const router = new VueRouter({
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  titi: 'toto'
 }).$mount('#app')

@@ -15,6 +15,7 @@ const getters = {
 const actions = {
   logout: ({ commit }) => {
     commit('setToken', null)
+    commit('setUsername', null)
     window.localStorage.removeItem('vue_imgur_app')
   },
   login: () => {

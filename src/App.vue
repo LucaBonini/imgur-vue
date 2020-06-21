@@ -13,6 +13,9 @@ export default {
   name: 'App',
   components: {
     Header
+  },
+  beforeCreate() {
+    console.log(this.$parent.$options, 'TITI')
   }
 }
 </script>
