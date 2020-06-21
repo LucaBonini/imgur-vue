@@ -2,6 +2,7 @@ const CLIENT_ID = 'e2280bf8bd36a74';
 const ROOT_URL = 'https://api.imgur.com'
 const GET_IMAGES_PATH = '3/account/me/images'
 const POST_UPLOAD = '3/image'
+const GET_FAVORITES = '3/account/:accountName/favorites'
 
 import qs from 'qs'
 import axios from 'axios'
@@ -15,7 +16,7 @@ export default {
     window.location = `${ROOT_URL}/oauth2/authorize?${qs.stringify(queryString)}`
   },
 
-  fetchImages(token) {
+  fetchMyImages(token) {
     return axios.get(`${ROOT_URL}/${GET_IMAGES_PATH}`, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -34,5 +35,13 @@ export default {
         })
       })
     )
+  },
+
+  fetchFavorites(username, token) {
+    return axios.get(`${ROOT_URL}/${GET_FAVORITES.replace(':accountName', username)}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
   }
 }

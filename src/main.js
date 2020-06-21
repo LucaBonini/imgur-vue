@@ -11,9 +11,10 @@ Vue.use(VueRouter)
 export const router = new VueRouter({
   mode: 'history', // browser router mode
   routes: [
-    { path: '/', component: ImageList },
+    { path: '/', component: ImageList, props: {actionToFetch: 'fetchMyImages'} },
     { path: '/upload', component: UploadForm },
-    { path: '/oauth2/callback', component: AuthHandler }
+    { path: '/oauth2/callback', component: AuthHandler },
+    { path: '/favorites', component: ImageList, props: { actionToFetch: 'fetchFavorites' } }
   ]
 })
 new Vue({

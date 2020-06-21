@@ -6,7 +6,8 @@
       </div>
       <div v-else class="images-container">
         <div v-for="image in allImages" :key="image.id">
-          <img :src="image.link" alt="image" class="img-column">
+          <img v-if="image.favorite" :src="`${imgFavUrl}/${image.cover}.jpeg`" alt="fav" class="img-column">
+          <img v-else :src="image.link" alt="image" class="img-column">
         </div>
       </div>
     </div>
@@ -20,14 +21,27 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ImageList',
+  props: ['actionToFetch'],
+  data() {
+    return {
+      imgFavUrl: 'https://i.imgur.com'
+    }
+  },
   methods: {
-    ...mapActions(['fetchImages']),
+    ...mapActions(['fetchMyImages', 'fetchFavorites', 'wipeImages']),
   },
   computed: {
-    ...mapGetters(['allImages', 'isLoggedIn'])
+    ...mapGetters(['allImages', 'isLoggedIn']),
   },
-  created() {
-    this.fetchImages()
+  mounted() {
+    this[this.actionToFetch]()
+  },
+  watch: {
+    actionToFetch(newValue) {
+      this.wipeImages().then(() => {
+        this[newValue]()
+      })
+    }
   }
 }
 </script>

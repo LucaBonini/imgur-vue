@@ -12,24 +12,46 @@ const getters = {
 const mutations = {
   setImages: (state, images) => {
     state.images = images
+  },
+  clearImages: (state) => {
+    state.images = []
   }
 }
 
 const actions = {
-  async fetchImages({ rootState, commit }) {
+
+  async fetchMyImages({ rootState, commit, dispatch }) {
     const { token } = rootState.auth
-    let response = []
+    await dispatch('wipeImages')
     try {
-      response = await api.fetchImages(token)      
+      const response = await api.fetchMyImages(token)     
+      commit('setImages', response.data.data)
     } catch (error) {
       console.log(error, 'ERROR')
     }
-    commit('setImages', response.data.data)
+  },
+  wipeImages({ commit }) {
+    return new Promise(resolve => {
+      commit('clearImages')
+      resolve()
+    })
   },
   async uploadImages({ rootState }, images) {
     const { token } = rootState.auth
     await api.uploadImages(images, token)
     router.push('/')
+  },
+
+  async fetchFavorites({ rootState, commit, dispatch }) {
+    const { username, token } = rootState.auth
+    await dispatch('wipeImages')
+    try {
+      const response = await api.fetchFavorites(username, token)
+      console.log(response, 'FAVVV')
+      commit('setImages', response.data.data)
+    } catch (error) {
+      console.log(error, 'ERROR')
+    }
   }
 }
 

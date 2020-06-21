@@ -4,11 +4,12 @@
       <router-link to="/" class="active item">
         Image storage
       </router-link>
-      {{ isLoggedIn }}
+      Hello {{ getUsername }} !
       <div class="right menu">
         <div v-if="isLoggedIn" class="horizontal">
           <router-link to="/" class="item">Galleries</router-link>
           <router-link to="/upload" class="item">Upload</router-link>
+          <router-link to="/favorites" class="item">My favorites</router-link>
           <a class="ui item" @click="logout">Log out</a>
         </div>
         <a v-else class="ui item" href="#" @click="login">
@@ -29,8 +30,9 @@ export default {
     // use ...to spread mapActions and be able to add other methods
   },
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn', 'getUsername'])
   }
+
 }
 </script>
 <style scoped>

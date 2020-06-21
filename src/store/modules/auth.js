@@ -3,41 +3,44 @@ import qs from 'qs'
 import { router } from '../../main'
 
 const state = {
-  token: window.localStorage.getItem('vue_imgur_token')
+  token: (JSON.parse(window.localStorage.getItem('vue_imgur_app'))|| {}).token,
+  username: (JSON.parse(window.localStorage.getItem('vue_imgur_app')) || {}).username
 }
 
 const getters = {
-  isLoggedIn: (state) => !!state.token
+  isLoggedIn: (state) => !!state.token,
+  getUsername: (state) => state.username
 }
 
 const actions = {
   logout: ({ commit }) => {
     commit('setToken', null)
-    window.localStorage.removeItem('vue_imgur_token')
+    window.localStorage.removeItem('vue_imgur_app')
   },
   login: () => {
     api.login()
   },
-  finalizeLogin: ({ commit }, hash) => {
-    // const [
-    //   accessToken, 
-    //   expiresIn, 
-    //   refreshToken, 
-    //   accountUsername, 
-    //   accountId] = hash.replace('#','').split('&').map(data => data.split('=')[1])
-    //   console.log(accessToken, refreshToken, expiresIn, accountId, accountUsername)
+  finalizeLogin: async ({ commit, dispatch }, hash) => {
     const query = qs.parse(hash.replace('#', ''))
+    await dispatch('setUsername', query.account_username)
     commit('setToken', query.access_token)
-    window.localStorage.setItem('vue_imgur_token', query.access_token)
+    window.localStorage.setItem('vue_imgur_app', JSON.stringify({token: query.access_token, username: query.account_username}))
     router.push('/')
-    // if (!window.localStorage.getItem('vue_imgur_token')) {
-    // }
+  },
+  setUsername: ({ commit }, username) => {
+    return new Promise((resolve) => {
+      commit('setUsername', username)
+      resolve()
+    })
   }
 }
 
 const mutations = {
   setToken: (state, token) => {
     state.token = token
+  },
+  setUsername: (state, username) => {
+    state.username = username
   }
 }
 
