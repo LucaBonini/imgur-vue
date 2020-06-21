@@ -39,7 +39,7 @@ const actions = {
   async uploadImages({ rootState }, imagesData) {
     const { token } = rootState.auth
     await api.uploadImages(imagesData, token)
-    router.push('/')
+    router.push('/vue-example/')
   },
 
   async fetchFavorites({ rootState, commit, dispatch }) {

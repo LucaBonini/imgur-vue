@@ -9,7 +9,9 @@
 
 <script>
 import Header from './components/Header'
+import store from './store'
 export default {
+  store,
   name: 'App',
   components: {
     Header

@@ -26,7 +26,7 @@ const actions = {
     await dispatch('setUsername', query.account_username)
     commit('setToken', query.access_token)
     window.localStorage.setItem('vue_imgur_app', JSON.stringify({token: query.access_token, username: query.account_username}))
-    router.push('/')
+    router.push('/vue-example/')
   },
   setUsername: ({ commit }, username) => {
     return new Promise((resolve) => {

@@ -11,18 +11,21 @@ Vue.use(VueRouter)
 export const router = new VueRouter({
   mode: 'history', // browser router mode
   routes: [
-    { path: '/', component: ImageList, props: {actionToFetch: 'fetchMyImages'} },
-    { path: '/upload', component: UploadForm },
-    { path: '/oauth2/callback', component: AuthHandler },
-    { path: '/favorites', component: ImageList, props: { actionToFetch: 'fetchFavorites' } }
+    { path: '/vue-example/', component: ImageList, props: {actionToFetch: 'fetchMyImages'} },
+    { path: '/vue-example/upload', component: UploadForm },
+    { path: '/vue-example/oauth2/callback', component: AuthHandler },
+    { path: '/vue-example/favorites', component: ImageList, props: { actionToFetch: 'fetchFavorites' } }
   ]
 })
-
-window.Vimgur = function(selector) {
-  new Vue({
-    router,
-    store,
-    render: h => h(App),
-    titi: 'toto'
-  }).$mount(selector)
+export default class Vimgur {
+  constructor(selector) {
+    this._insance = new Vue({
+      router,
+      store,
+      render: h => h(App),
+      path
+    }).$mount(selector)
+  }
 }
+
+window.Vimgur = Vimgur
