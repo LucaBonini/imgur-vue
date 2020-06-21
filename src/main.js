@@ -17,9 +17,12 @@ export const router = new VueRouter({
     { path: '/favorites', component: ImageList, props: { actionToFetch: 'fetchFavorites' } }
   ]
 })
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-  titi: 'toto'
-}).$mount('#app')
+
+window.Vimgur = function(selector) {
+  new Vue({
+    router,
+    store,
+    render: h => h(App),
+    titi: 'toto'
+  }).$mount(selector)
+}
