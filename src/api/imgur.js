@@ -25,9 +25,11 @@ export default {
   },
   uploadImages(images, token) {
     return Promise.all(
-      Array.from(images).map(image => {
+      images.map(image => {
         let formData = new FormData()
-        formData.append('image', image)
+        for (const key in image) {
+          formData.append(key, image[key])
+        }
         return axios.post(`${ROOT_URL}/${POST_UPLOAD}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`

@@ -36,9 +36,9 @@ const actions = {
       resolve()
     })
   },
-  async uploadImages({ rootState }, images) {
+  async uploadImages({ rootState }, imagesData) {
     const { token } = rootState.auth
-    await api.uploadImages(images, token)
+    await api.uploadImages(imagesData, token)
     router.push('/')
   },
 

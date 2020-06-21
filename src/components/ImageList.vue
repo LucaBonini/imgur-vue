@@ -7,7 +7,7 @@
       <div v-else class="images-container">
         <div v-for="image in allImages" :key="image.id">
           <img v-if="image.favorite" :src="`${imgFavUrl}/${image.cover}.jpeg`" alt="fav" class="img-column">
-          <img v-else :src="image.link" alt="image" class="img-column">
+          <img v-else :src="image.link" alt="image" class="img-column" >
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@ export default {
     ...mapActions(['fetchMyImages', 'fetchFavorites', 'wipeImages']),
   },
   computed: {
-    ...mapGetters(['allImages', 'isLoggedIn']),
+    ...mapGetters(['allImages', 'isLoggedIn'])
   },
   mounted() {
     this[this.actionToFetch]()
