@@ -47,7 +47,6 @@ const actions = {
     await dispatch('wipeImages')
     try {
       const response = await api.fetchFavorites(username, token)
-      console.log(response, 'FAVVV')
       commit('setImages', response.data.data)
     } catch (error) {
       console.log(error, 'ERROR')

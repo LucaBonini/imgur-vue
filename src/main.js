@@ -23,7 +23,6 @@ export default class Vimgur {
       router,
       store,
       render: h => h(App),
-      path
     }).$mount(selector)
   }
 }
